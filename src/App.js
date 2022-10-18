@@ -1,13 +1,19 @@
-import React from 'react';
-import { Switch, Route } from 'react-router-dom';
-import NavBar from './components/NavBar';
-import Profile from './pages/Profile';
-import Home from './pages/Home';
-import SignIn from './pages/SignIn';
-import SignUp from './pages/SignUp';
-import './App.css';
+import React, {useContext} from "react";
+import {Switch, Route, Redirect} from "react-router-dom";
+import NavBar from "./components/NavBar";
+import Profile from "./pages/Profile";
+import Home from "./pages/Home";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
+import "./App.css";
+import {AuthContext} from "./components/AuthContext";
+
+
 
 function App() {
+  const {isAuth} = useContext(AuthContext);
+
+
   return (
     <>
       <NavBar />
@@ -17,7 +23,9 @@ function App() {
             <Home />
           </Route>
           <Route path="/profile">
-            <Profile />
+            {/*beveiligde route naar profile-page:*/}
+            { isAuth ?
+            <Profile /> : <Redirect to="/signin" /> }
           </Route>
           <Route exact path="/signin">
             <SignIn />
