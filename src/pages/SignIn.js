@@ -2,13 +2,14 @@ import React, {useContext} from "react";
 import {Link} from "react-router-dom";
 import {AuthContext} from "../components/AuthContext";
 import {useForm} from "react-hook-form";
-import axios from "axios";
+// import axios from "axios";
 
 function SignIn() {
     const {login} = useContext(AuthContext);
     const {handleSubmit, formState: {errors, isDirty, isValid}, register} = useForm({
         mode:"onBlur",
         defaultValues: {
+            "userName": "",
             "emailField": "",
             "passwordField": "",
         }
@@ -21,27 +22,27 @@ function SignIn() {
         console.log(data);
     }
 
-    async function clickHandler() {
-        // Verzend de inloggegevens via een post-request naar de backend
-        try {
-
-
-        // 1. Het endpoint wordt: http://localhost:3000/login
-        // 2. We moeten de keys "email" en "password" gebruiken
-            const response = await axios.post("http://localhost:3000/login", {
-                email: 'piet.pieters@novi.nl',
-                password: '123456'
-
-            });
-            // We krijgen een token terug
-            console.log(response.data.accessToken);
-
-
-    } catch (e) {
-            console.error(e);
-        }
-
-    }
+    // async function clickHandler() {
+    //     // Verzend de inloggegevens via een post-request naar de backend
+    //     try {
+    //
+    //
+    //     // 1. Het endpoint wordt: http://localhost:3000/login
+    //     // 2. We moeten de keys "email" en "password" gebruiken
+    //         const response = await axios.post("http://localhost:3000/login", {
+    //             email: 'piet.pieters@novi.nl',
+    //             password: '123456'
+    //
+    //         });
+    //         // We krijgen een token terug
+    //         console.log(response.data.accessToken);
+    //
+    //
+    // } catch (e) {
+    //         console.error(e);
+    //     }
+    //
+    // }
 
     return (
         <>
@@ -66,7 +67,7 @@ function SignIn() {
                                     message: "E-mail adres kan niet leeg zijn en moet een @ bevatten",
                                 },
                                 pattern: {
-                                    value: /^[a-zA-Z0-9.! #$%&'*+/=? ^_`{|}~-]+@[a-zA-Z0-9-]+(?:\. [a-zA-Z0-9-]+)*$/,
+                                    value: /^[a-zA-Z0-9.! #$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\. [a-zA-Z0-9-]+)*$/,
                                     message: "Invalid email address",
                                 },
                             })}
@@ -83,7 +84,7 @@ function SignIn() {
                             placeholder="Uw wachtwoord"
                             {...register("passwordField", {
                                 required: "Wachtwoord moet minstens 8 karakters lang zijn",
-                                MinLength: {value: 8, message: "Wachtwoord moet minstens 8 karakters lang zijn"},
+                                minLength: {value: 8, message: "Wachtwoord moet minstens 8 karakters lang zijn"},
 
                             })}
                         />
@@ -92,7 +93,7 @@ function SignIn() {
 
                     <button
                         type="submit"
-                        onClick={clickHandler}
+                        // onClick={clickHandler}
                         disabled={!isDirty || !isValid}
                     >Inloggen</button>
                 </fieldset>

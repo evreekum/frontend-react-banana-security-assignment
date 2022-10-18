@@ -36,22 +36,6 @@ function SignUp() {
                 <fieldset>
                     <legend>Registreren:</legend>
 
-                  {/*  <label htmlFor="user-name-field">
-                        Gebruikersnaam:
-                        <input
-                            id="user-name-field"
-                            className="userName"
-                            type="text"
-                            placeholder="Uw gebruikersnaam"
-                            {...register("userName", {
-                                MinLength: {value: 6, message: "Gebruikersnaam moet minstens 6 karakters lang zijn"},
-                            })}
-
-                        />
-                    </label>
-                    {errors.userName && <p>{errors.userName.message}</p>}*/}
-
-
                     <InputField
                         label="Gebruikersnaam"
                         name="userName"
@@ -59,15 +43,13 @@ function SignUp() {
                         placeholder="Uw gebruikersnaam"
                         register={register}
                         validationObject={{
-                        minLength: {
-                            value: 6,
-                            message:"Gebruikersnaam moet minstens 6 karakters lang zijn",
-                        },}}
+                            minLength: {
+                                value: 6,
+                                message: "Gebruikersnaam moet minstens 6 karakters lang zijn",
+                            },
+                        }}
 
                     />
-
-
-
 
                     <label htmlFor="register-email-field">
                         E-mail:
@@ -115,8 +97,7 @@ function SignUp() {
             </form>
             <p>Heb je al een account? Je kunt je <Link to="/signin">hier</Link> inloggen.</p>
         </>
-    )
-        ;
+    );
 }
 
 export default SignUp;
