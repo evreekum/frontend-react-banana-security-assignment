@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import {AuthContext} from "../components/AuthContext";
 import {useForm} from "react-hook-form";
@@ -7,8 +7,8 @@ import axios from "axios";
 
 
 function SignUp() {
-    // const {loginFunction} = useContext(AuthContext);
-    const {handleSubmit, formState: {errors, isDirty, isValid}, register} = useForm({
+    const {isAuth} = useContext(AuthContext);
+    const {handleSubmit, formState: {errors}, register} = useForm({
         mode: "onBlur",
         defaultValues: {
             "username": "",
@@ -16,11 +16,10 @@ function SignUp() {
             "password": "",
         }
     });
-
     const history = useHistory();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [username, setUsername] = useState("");
+    // const [email, setEmail] = useState("");
+    // const [password, setPassword] = useState("");
+    // const [username, setUsername] = useState("");
 
 
     // function onFormSubmit(data, e) {
@@ -29,17 +28,17 @@ function SignUp() {
     //     console.log(data);
     // }
 
-    async function onFormSubmit() {
+    async function onFormSubmit(data) {
         // e.preventDefault();
 
         try {
-            await axios.post("http://localhost:3000/register", {
-                email: email,
-                password: password,
-                username: username,
+            const response = await axios.post("http://localhost:3000/register", {
+                email: data.email,
+                password: data.password,
+                username: data.username,
 
             })
-            console.log(email, password, username);
+            console.log(response);
             history.push("/signin");
         } catch (e) {
             console.error(e);
@@ -66,7 +65,7 @@ function SignUp() {
                         placeholder="Uw gebruikersnaam"
                         register={register}
                         errors={errors}
-                        setField={setUsername}
+                        // setField={setUsername}
                         validationObject={{
                             required: "Gebruikersnaam mag niet leeg zijn",
                             minLength: {
@@ -83,7 +82,7 @@ function SignUp() {
                         placeholder="Uw e-mail adres"
                         register={register}
                         errors={errors}
-                        setField={setEmail}
+                        // setField={setEmail}
                         validationObject={{
                             required: {
                                 message: "E-mail adres mag niet leeg zijn",
@@ -102,7 +101,7 @@ function SignUp() {
                         placeholder="Uw wachtwoord"
                         register={register}
                         errors={errors}
-                        setField={setPassword}
+                        // setField={setPassword}
                         validationObject={{
                             required: "Wachtwoord mag niet leeg zijn",
                             minLength: {
@@ -112,11 +111,11 @@ function SignUp() {
                         }}
                     />
 
-                    <button
-                        type="submit"
-                        disabled={!isDirty || !isValid}
-                    >Registreren
-                    </button>
+                        <button
+                            type="submit"
+                            // disabled={!isDirty || !isValid}
+                        >Registreren
+                        </button>
 
                 </fieldset>
             </form>

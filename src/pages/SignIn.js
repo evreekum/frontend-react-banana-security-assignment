@@ -15,15 +15,13 @@ function SignIn() {
             "password": "",
         }
     });
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
 
-    function onFormSubmit(data, e) {
-        e.preventDefault();
-        console.log(data);
-    }
+    // function onFormSubmit(data, e) {
+    //     e.preventDefault();
+    //     console.log(data);
+    // }
 
-    async function clickHandler() {
+    async function clickHandler(data) {
         // Verzend de inloggegevens via een post-request naar de backend
         try {
 
@@ -31,23 +29,27 @@ function SignIn() {
         // 1. Het endpoint wordt: http://localhost:3000/login
         // 2. We moeten de keys "email" en "password" gebruiken
             const response = await axios.post("http://localhost:3000/login", {
-                email: email,
-                password: password,
+                email: data.email,
+                password: data.password,
 
             });
             // We krijgen een token terug
-            console.log(response.data.accessToken);
-
+            console.log("token uit de backend teruggekregen na inloggen", response.data.accessToken);
+            loginFunction(response.data.accessToken);
 
     } catch (e) {
             console.error(e);
         }
-    loginFunction();
-    }
 
-    // useEffect(() =>{
-    //     loginFunction();},
-    //     [isAuth]
+    }
+    //
+    // useEffect(() => {
+    //     // Is er een token? En is deze nog geldig?
+    //
+    //     // Ja? Haal de gebruikersdata opnieuw op en zet in de stat!
+    //     // Nee? Dan blijft de state leeg
+    //     loginFunction();
+    //     },[]
     // );
 
         // async function onFormSubmit(e) {
@@ -74,7 +76,7 @@ function SignIn() {
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab alias cum debitis dolor dolore fuga id
                 molestias qui quo unde?</p>
 
-            <form onSubmit={handleSubmit(onFormSubmit)}>
+            <form onSubmit={handleSubmit(clickHandler)}>
                 <fieldset>
                     <legend>Inloggen:</legend>
 
@@ -95,7 +97,6 @@ function SignIn() {
                             }
                         }}
                     >
-                        onChange={(e)=> setEmail(e.target.value)}
                     </InputField>
 
                     <InputField
@@ -113,16 +114,14 @@ function SignIn() {
                             }
                         }}
                     >
-                        onChange={(e)=> setPassword(e.target.value)}
                     </InputField>
-                    {isAuth.isAuth === true &&
+
                     <button
                         type="submit"
-                        onClick={loginFunction}
                         // disabled={!isDirty || !isValid}
                     >Inloggen
                     </button>
-                    }
+
                 </fieldset>
             </form>
 

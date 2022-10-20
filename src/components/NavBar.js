@@ -21,7 +21,7 @@ function NavBar() {
 
             <div>
 
-                {!isAuth.isAuth ?
+                {isAuth ?
                     <button type="button"
                             onClick={logoutFunction}>
                         Log out

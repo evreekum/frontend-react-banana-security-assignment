@@ -10,7 +10,7 @@ function InputField({name, label, inputType, placeholder, register, validationOb
                 id={`${name}-field`}
                 type={inputType}
                 placeholder={placeholder}
-                onChange={setField}
+
             />
             {errors[name] && <p className="error-message">{errors[name].message}</p>}
         </label>
