@@ -24,7 +24,7 @@ function App() {
           </Route>
           <Route path="/profile">
             {/*beveiligde route naar profile-page:*/}
-            { isAuth ?
+            { isAuth.isAuth ?
             <Profile /> : <Redirect to="/signin" /> }
           </Route>
           <Route exact path="/signin">
