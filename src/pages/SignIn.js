@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {useContext} from "react";
 import {Link} from "react-router-dom";
 import {AuthContext} from "../components/AuthContext";
 import {useForm} from "react-hook-form";
@@ -7,7 +7,7 @@ import axios from "axios";
 
 
 function SignIn() {
-    const {isAuth, loginFunction} = useContext(AuthContext);
+    const {loginFunction} = useContext(AuthContext);
     const {handleSubmit, formState: {errors}, register} = useForm({
         mode: "onBlur",
         defaultValues: {
